@@ -9,4 +9,4 @@ This package implements the [libdns interfaces](https://github.com/libdns/libdns
 
 Simply, go to the Liara's console and obtain your API Key from the top header.
 
-![Image](./liara_api.jpeg)
+![Image](./liara_api.jpg)
