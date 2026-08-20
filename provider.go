@@ -63,8 +63,6 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 
 		added_records = append(added_records, addedAsLibdns...)
 	}
-	fmt.Println(len(added_records), " Has been appended: ", added_records)
-	fmt.Println()
 
 	return added_records, nil
 }
@@ -76,7 +74,6 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 // SetRecords sets the records in the zone, either by updating existing records or creating new ones.
 // It returns the updated records, And not the skipped ones.
 func (p *Provider) SetRecords(ctx context.Context, zone string, records []libdns.Record) ([]libdns.Record, error) {
-	fmt.Println("Hello SetRecords with content ", records)
 	existingRecords, err := p.GetRecords(ctx, zone)
 	if err != nil {
 		return nil, fmt.Errorf("Failure when fetching the record from Liara: %s", err)
@@ -102,8 +99,6 @@ func (p *Provider) SetRecords(ctx context.Context, zone string, records []libdns
 
 // DeleteRecords deletes the specified records from the zone. It returns the records that were deleted.
 func (p *Provider) DeleteRecords(ctx context.Context, zone string, records []libdns.Record) ([]libdns.Record, error) {
-	fmt.Println("Hello DeleteRecords with content ", records)
-	fmt.Println()
 	client := newClient(p.APIToken)
 
 	deleted := make([]libdns.Record, 0, len(records))
@@ -133,12 +128,8 @@ func (p *Provider) DeleteRecords(ctx context.Context, zone string, records []lib
 			toRemoveLiara.Contents,
 		)
 
-		fmt.Println("----Check for ", existingLiara.Contents, " AND ",
-			toRemoveLiara.Contents, "Resulted INNN ", remaining)
-
 		if len(remaining) == 0 {
 			// remaning 0  means the entire record should be deleted.
-			fmt.Println("Going to remove a record ", existingLiara)
 			err = client.APIDeleteRecord(ctx, zone, existingLiara.ID)
 			if err != nil {
 				return nil, fmt.Errorf("Error occured when deleting a record from Liara: %s", err.Error())
