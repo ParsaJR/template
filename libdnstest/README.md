@@ -31,3 +31,9 @@ go test -v
 ```
 
 
+## What Gets Tested
+
+- GetRecords, AppendRecords, SetRecords, DeleteRecords
+- Complete record lifecycle (create → update → delete)
+- Various DNS record types
+- Some internal utilities 
