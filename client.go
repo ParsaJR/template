@@ -19,14 +19,14 @@ const (
 // Client is a struct, that knows how to interact with the Liara's api thorugh
 // its methods.
 type client struct {
-	Liara_api_token string
-	httpClient      *http.Client
+	apiToken   string
+	httpClient *http.Client
 }
 
 // newClient creates a new Liara API client.
 func newClient(token string) *client {
 	return &client{
-		Liara_api_token: token,
+		apiToken: token,
 		httpClient: &http.Client{
 			Timeout: time.Second * 20,
 		},
@@ -131,7 +131,7 @@ func (c client) do(ctx context.Context, method, endpoint string, body io.Reader)
 		return nil, err
 	}
 
-	req.Header.Set("Authorization", "Bearer "+c.Liara_api_token)
+	req.Header.Set("Authorization", "Bearer "+c.apiToken)
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
 
