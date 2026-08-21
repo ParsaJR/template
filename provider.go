@@ -23,7 +23,7 @@ func (p *Provider) GetRecords(ctx context.Context, zone string) ([]libdns.Record
 		return nil, err
 	}
 
-	libdns_records := make([]libdns.Record, 0)
+	libdns_records := make([]libdns.Record, 0, len(records))
 
 	for _, record := range records {
 		libdns_record, err := record.ToLibdnsRRType(zone)
