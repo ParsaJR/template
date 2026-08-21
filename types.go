@@ -59,16 +59,6 @@ func (e APIError) Error() string {
 	return fmt.Sprintf("%d: %s", e.StatusCode, e.ErrorMessage)
 }
 
-// Checks to see if two APIRecordContent structs are identical.
-func (current APIRecordContent) IsEqual(target APIRecordContent) bool {
-	return current.IP == target.IP &&
-		current.Host == target.Host &&
-		current.Priority == target.Priority &&
-		current.Weight == target.Weight &&
-		current.Port == target.Port &&
-		current.Text == target.Text
-}
-
 // Converts the Liara specific "APIRecord" type to an appropriate, concrete RR
 // type struct in libdns(the types are in the file "rrtypes.go").
 //

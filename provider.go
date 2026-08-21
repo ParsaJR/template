@@ -185,7 +185,7 @@ func RemainingContent(
 		found := false
 
 		for _, recordToRemove := range recordsToRemove {
-			if record.IsEqual(recordToRemove) {
+			if record == recordToRemove {
 				found = true
 				break
 			}
