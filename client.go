@@ -153,7 +153,7 @@ func (c client) do(ctx context.Context, method, endpoint string, body io.Reader)
 		return nil, err
 	}
 
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+	if resp.StatusCode < 200 || resp.StatusCode >= 400 {
 
 		var apiErr APIError
 
