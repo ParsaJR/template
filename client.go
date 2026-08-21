@@ -20,7 +20,6 @@ const (
 // its methods.
 type client struct {
 	Liara_api_token string
-	BaseURL         string
 	httpClient      *http.Client
 }
 
@@ -28,7 +27,6 @@ type client struct {
 func newClient(token string) *client {
 	return &client{
 		Liara_api_token: token,
-		BaseURL:         apiBaseURL,
 		httpClient: &http.Client{
 			Timeout: time.Second * 20,
 		},
@@ -37,7 +35,7 @@ func newClient(token string) *client {
 
 // Gets all the dns records in a specific zone.
 func (c client) APIGetRecords(ctx context.Context, zone string) ([]APIRecord, error) {
-	endpoint := c.BaseURL + fmt.Sprintf("zones/%s/dns-records", zone)
+	endpoint := apiBaseURL + fmt.Sprintf("zones/%s/dns-records", zone)
 
 	resp, err := c.do(ctx, http.MethodGet, endpoint, nil)
 	if err != nil {
@@ -56,7 +54,7 @@ func (c client) APIGetRecords(ctx context.Context, zone string) ([]APIRecord, er
 
 // Inserts a single dns record through Liara api, and returns it.
 func (c client) APIPostRecord(ctx context.Context, zone string, record APIRecord) (APIRecord, error) {
-	endpoint := c.BaseURL + fmt.Sprintf("zones/%s/dns-records", zone)
+	endpoint := apiBaseURL + fmt.Sprintf("zones/%s/dns-records", zone)
 
 	body, err := json.Marshal(record)
 	if err != nil {
@@ -85,7 +83,7 @@ func (c client) APIPostRecord(ctx context.Context, zone string, record APIRecord
 // and returns the updated record.
 // It needs the entire entity to be replaces with another.
 func (c client) APIUpdateRecord(ctx context.Context, zone string, id string, record APIRecord) (APIRecord, error) {
-	endpoint := c.BaseURL + fmt.Sprintf("zones/%s/dns-records/%s", zone, id)
+	endpoint := apiBaseURL + fmt.Sprintf("zones/%s/dns-records/%s", zone, id)
 
 	body, err := json.Marshal(record)
 	if err != nil {
@@ -114,7 +112,7 @@ func (c client) APIUpdateRecord(ctx context.Context, zone string, id string, rec
 // and returns the deleted record.
 func (c client) APIDeleteRecord(ctx context.Context, zone string, id string) error {
 
-	endpoint := c.BaseURL + fmt.Sprintf("zones/%s/dns-records/%s", zone, id)
+	endpoint := apiBaseURL + fmt.Sprintf("zones/%s/dns-records/%s", zone, id)
 
 	_, err := c.do(ctx, http.MethodDelete, endpoint, nil)
 
