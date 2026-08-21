@@ -17,7 +17,7 @@ func TestLiaraDNSProvider(t *testing.T) {
 	testZone := os.Getenv("LIARA_TEST_ZONE")
 
 	if liaraAPIToken == "" || testZone == "" {
-		t.Fatal("Liara provider tests failed: LIARA_API_KEY & LIARA_TEST_ZONE environment variables must be set. ")
+		t.Fatal("Liara provider tests failed: LIARA_API_TOKEN & LIARA_TEST_ZONE environment variables must be set. ")
 	}
 
 	provider := &liara.Provider{
